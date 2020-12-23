@@ -319,9 +319,6 @@ void Interface::Init() const
 		case 10:
 			fl = false;
 			break;
-		default:
-			std::cout << "Uncorrect command\n";
-			break;
 		}
 	}
 }
