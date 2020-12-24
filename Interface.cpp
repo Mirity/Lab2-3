@@ -170,17 +170,16 @@ void Interface::DeleteFigure(const std::string name) const
 
 void Interface::CreateFigure() const
 {
-	RectangleFactory rectangleFactory;
-	PentagonFactory pentagonFactory;
+	Factory figureFactory;
 
 	cout << "Enter name of figure:\n>> ";
 	string name;
 	cin >> name;
 
-	int type;
-	cout << "Is it Rectangle or Pentagon (1 or 2):\n>> ";
-	cin >> type;
-
+	int count;
+	cout << "How many points are in your figure?\n>> ";
+	cin >> count;
+	
 	
 
 	bool isEnoughtSpace = false;
@@ -193,43 +192,23 @@ void Interface::CreateFigure() const
 			index = i;
 		}
 	}
-
+	
 	if (isEnoughtSpace)
 	{
-		Figure* newElement = nullptr;
-
 		try
 		{
-			if (type == 1)
-			{
-				Point* points = new Point[4];
-
-				std::cout << "Enter new points (x,y)\n1------2\n-       -\n-       -\n-       -\n4------3\n";
-
-				for (int i = 0; i < 4; i++)
-				{
-					cin >> points[i].x;
-					cin >> points[i].y;
-				}
-
-				newElement = rectangleFactory.createFigure(points);
-				delete[] points;
-			}
-			else if (type == 2)
-			{
-				Point* points = new Point[5];
-
+				Figure* newElement = nullptr;
+				Point* points = new Point[count];
 				cout << "Enter points:\n";
-				for (int i = 0; i < 5; i++)
+				for (int i = 0; i < count; i++)
 				{
-					cout << "\n" << i + 1 << ") x: \n>> ";
+					cout << "\n" << i + 1 << ") x, y: \n>> ";
 					cin >> points[i].x;
-					cout << "\n" << i + 1 << ") y: \n>> ";
 					cin >> points[i].y;
 				}
-				newElement = pentagonFactory.createFigure(points);
+				newElement = figureFactory.createFigure(points,count);
 				delete[] points;
-			}
+			
 			_names[index] = name;
 			_cases[index] = newElement;
 			cout << "Complete!\n";
@@ -237,7 +216,9 @@ void Interface::CreateFigure() const
 		catch (const std::logic_error& src)
 		{
 			cout << src.what() << "\n";
+			return;
 		}
+		
 	}
 	else
 	{

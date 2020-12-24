@@ -1,21 +1,12 @@
 #include "Pentagon.h"
 #include "Rectangle.h"
+#include <stdexcept>
+using std::logic_error;
 
 class Factory
 {
 public:
-    virtual Figure* createFigure(Point* cords) = 0;
+    Figure* createFigure(Point* cords, int count);
     virtual ~Factory() {}
 };
 
-class RectangleFactory : public Factory
-{
-public:
-    Figure* createFigure(Point* cords) override;
-};
-
-class PentagonFactory : public Factory
-{
-public:
-    Figure* createFigure(Point* cords) override;
-};

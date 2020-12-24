@@ -1,11 +1,18 @@
 #include "Factory.h"
 
-Figure* RectangleFactory::createFigure(Point* cords) 
-{
-    return new Rectangle(cords);
-}
 
-Figure* PentagonFactory::createFigure(Point* cords)
+Figure* Factory::createFigure(Point* cords, int count) 
 {
-    return new Pentagon(cords);
+    switch (count)
+    {
+    case 4:
+        return new Rectangle(cords);
+        break;
+    case 5:
+        return new Pentagon(cords);
+        break;
+    default:
+        throw logic_error("WRONG_FIGURE");
+    }
+    
 }
